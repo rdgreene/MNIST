@@ -3,7 +3,7 @@
 
 [trainChunks, labelChunks] = svmDivideMatrixRndInChunks(hogTrainFeatures, tTrain, 3);
 
-boxContraint = 0.5; % Options [1     2     4     5     7    10]
+boxContraint = 0.5; % Options [0.05     0.1     0.3     0.7     1    2]
 
 for i=1:size(kernelScales,2)
     
