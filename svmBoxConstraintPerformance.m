@@ -1,5 +1,5 @@
 %% Selection of Hyperparameter by discarding the higher error rates in
-% the following order: KernelFunction, BoxConstrians and Scalar value
+% the following order: KernelFunction: linear, BoxConstrians ?
 
 [trainChunks, labelChunks] = svmDivideMatrixRndInChunks(hogTrainFeatures, tTrain, 3);
 
@@ -16,4 +16,4 @@ for i=1:size(boxConstraints,2)
     evalCE(i) = mean(linearValCE);
 end
 
-save('hog_linear_box_errors', trainCE, evalCE);
+save('hog_linear_box_errors', 'trainCE', 'evalCE');
