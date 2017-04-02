@@ -13,6 +13,17 @@ currentTemplate = templateSVM('Standardize',1,...
 %% fit model on test data (HOG)
 SVMMdl = fitcecoc(hogTrainFeatures, tTrain, 'Learners', currentTemplate);
 
+
+%predict training data
+[tr_labelsOut, tr_score] = predict(SVMMdl, hogTrainFeatures);
+tr_ConfMatTest = confusionmat(tTrain, tr_labelsOut);
+tr_Accuracy = 1 - (size(hogTrainFeatures,1) - sum(diag(tr_ConfMatTest))) / size(hogTrainFeatures,1) 
+tr_Error = 1 - tr_Accuracy
+
+tr_ClassAcc = sum(tTrain == tr_labelsOut) / size(tTrain,1) 
+tr_ClassErr = 1 - tr_ClassAcc
+save('svm_fit_train_data', 'tr_labelsOut', 'tr_score', 'tr_ClassAcc','tr_ClassErr');
+
 %predict test data
 [labelsOut, score] = predict(SVMMdl, hogTestFeatures);
 ConfMatTest = confusionmat(tTest, labelsOut);
