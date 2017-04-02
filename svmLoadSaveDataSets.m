@@ -51,7 +51,7 @@ polynomialTemplate = templateSVM('Standardize',1,'KernelFunction',...
 %Kernel functions
 kernelFunctions = {'linear';'gaussian';'polynomial'}
 %Box constraint options
-boxConstraints =  [1 2 4 5 7 10]
+boxConstraints =  [0.05 0.1 0.3 0.5 0.7 1 2]
 %Kernel scale options
 kernelScales = [0.05 0.1 0.3 0.5 0.7 0.9]
 % 'auto', then the software selects an appropriate scale factor using a heuristic procedure

@@ -1,4 +1,4 @@
-% nn coursework 1 SVM
+% SVM
 clc; clear;
 %% Load dataset and generate a HOG version
 %  Execute once, (if you have workspace.mat file in your path, just double click)

@@ -6,8 +6,8 @@
 currentTemplate = templateSVM('Standardize',1,...
                     'KernelFunction','linear',...
                     'ClassNames',{0,1,2,3,4,5,6,7,8,9}, ...
-                    'BoxConstraint',1,...
-                    'KernelScale',0.5)
+                    'BoxConstraint',0.05,...
+                    'KernelScale',0.9)
 
 
 %% fit model on test data (HOG)
@@ -23,3 +23,5 @@ ClassAcc = sum(tTest == labelsOut) / size(tTest,1)
 ClassErr = 1 - ClassAcc
 
 showConfusionMatrix(labelsOut, hogTestFeatures, tTest);
+
+save('svm_fit_test_data', 'labelsOut', 'score', 'ClassAcc','ClassErr');

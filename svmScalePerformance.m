@@ -3,7 +3,7 @@
 
 [trainChunks, labelChunks] = svmDivideMatrixRndInChunks(hogTrainFeatures, tTrain, 3);
 
-boxContraint = 0.5; % Options [0.05     0.1     0.3     0.7     1    2]
+boxContraint = 0.3; % Options [0.05     0.1     0.3     0.7     1    2]
 
 for i=1:size(kernelScales,2)
     
@@ -18,4 +18,4 @@ for i=1:size(kernelScales,2)
     evalCE(i) = mean(linearValCE);
 end
 % make sure you change name 'box1' based on boxContraint value
-save('svm_hog_linear_box1_scale_errors', 'trainCE', 'evalCE');
+save('svm_hog_linear_box03A_scale_errors', 'trainCE', 'evalCE');
