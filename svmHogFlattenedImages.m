@@ -28,7 +28,7 @@ for i = 1:numImages
 
     [hog_8x8, vis8x8] = extractHOGFeatures(image, 'CellSize', cellSize);
     
-    %plot(vis4x4);
+    plot(vis8x8);
     if exist('trainingFeatures', 'var') == 0
         trainingFeatures = zeros(numImages, length(hog_8x8), 'single');
     end
