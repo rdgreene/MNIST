@@ -1,0 +1,86 @@
+
+# SVM MNIST
+Applying SVM for classifying digits using the MNIST dataset 
+
+## Resources
+
+The scripts specific to SVM execution are named with the prefix ?svm?
+
+In addition to 'Readme' file, the following files types are included:
+
+
+1) The MNIST dataset
+
+2) Script files '.m' with exercise routines Functions
+
+3) Results files '.mat', saved results variables after long executions
+
+4) Figures '.fig' figure generator
+
+
+# Order of Execution
+
+A) Full pipeline execution (long execution, not recommended)
+
+svnPipeline.m
+
+B) Execute in chunks and record results
+
+1 - Load dataset and hyperparameters templates and save it in the workspace
+
+svmLoadSaveDataSets.m
+
+2 - Opt for HOG feature extraction, compare it with the initial dataset
+
+svmHogPerformance.m
+
+3 - Choose Kernel best performance with default hyper parameters values 
+
+svmKernelPerformance.m
+
+4 - Once the kernel is selected select box constraint based on performance
+
+svmBoxConstraintPerformance.m
+
+5 - Finally select kernel scale
+
+svmScalePerformance.m
+
+6 - Run Test and Train data using the hyperparameters with the best performance.
+
+svmFitTestData.m
+
+## Util scripts and Figure generators
+
+- Divide matrices (train/labels) in 'n' chunks 
+
+svmDivideMatrixRndInChunks.m
+
+- Performs validation based on number of chunks (k folds)
+
+svmKfoldValidation.m
+
+- Show results matrix on a heat grid
+
+svmShowHeatErrorGrid.m
+svmShowHeatGrid.m
+
+- Extract hog features from images
+svmHogFlattenedImages.m
+
+
+# Results
+
+The final results with the hyperparams which had the best performace
+Class accuracy, Class error, predicted labels (labelsOut) and score matrix.
+
+svm_fit_train_data.mat
+svm_fit_test_data.mat
+
+Each step of the search for hyper-parameters are in files like:
+this corresponds to linear, box constraint 0,05 
+and it will loop through 6 Kernel scales [0.05 0.1 0.3 0.5 0.7 0.9]
+evalCE and trainCE will hold the vector with the results of evaluation 
+classification error and training classification error respectively.
+
+svm_hog_linear_box005_scale_errors.mat
