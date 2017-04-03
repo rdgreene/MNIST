@@ -64,7 +64,7 @@ showConfusionMatrix(labelsOutHOG, hogTrainFeatures, tTrain);
 
 %% use chunks to reduce execution time
 fprintf('Reduce the number of training data (faster)\n');
-[hogChunksTrain, hogChunksLabels] = divideMatrixRndInChunks(hogTrainFeatures, tTrain, 10);
+[hogChunksTrain, hogChunksLabels] = svmDivideMatrixRndInChunks(hogTrainFeatures, tTrain, 10);
 
 % leave orig size for final training
 OrighogTrainFeatures = hogTrainFeatures;
@@ -74,14 +74,14 @@ hogTrainFeatures = hogChunksTrain{1};
 tTrain = hogChunksLabels{1};
 
 %% Selection of Hyperparameter optimization base in each convination
-fprintf('Selection of hyperparameters\n');
+display('Selection of hyperparameters');
 %pre assing space to list
 hpLossResults = {};
 index = 1;
 
 for svmTemplate = 1: size(svmHpTemplates, 2)
     % train with HOG features extraction and template 
-    fprintf('Loop through templates %d', svmTemplate);   
+    display(strcat('Loop through templates: ', svmTemplate));   
     tempSVMMdl = fitcecoc(hogTrainFeatures, tTrain, 'KFold',3, 'Learners',svmHpTemplates{svmTemplate});
     cehog = kfoldLoss(tempSVMMdl,'LossFun','classiferror')
     ce_hog_each = kfoldLoss(tempSVMMdl,'LossFun','classiferror','Mode','individual')
