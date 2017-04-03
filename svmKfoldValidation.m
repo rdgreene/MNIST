@@ -1,4 +1,10 @@
 function [te, ve] = svmKfoldValidation(dataChunks, labelChunks, template)
+%% Kfold validation, 
+% function parameters: 
+%        chunks of training, chunks (see svmDivideMatrixRndInChunks.m) 
+%        of the corresponding labels and hyperparameters template
+
+% returns: training error vector and validation error vector for each fold
 
     noOfChunks = size(dataChunks,2);
     indxPermutations = randperm(noOfChunks); 
@@ -28,7 +34,7 @@ function [te, ve] = svmKfoldValidation(dataChunks, labelChunks, template)
         ConfMatTest = confusionmat(chunkTrainLabels, labelsOut);
         TrainingAccuracy = 1 - (size(chunkTrain,1) - sum(diag(ConfMatTest))) / size(chunkTrain,1) 
         
-        size(chunkTrainLabels, 1) 
+        size(chunkTrainLabels, 1); 
         trainClassAcc = sum(chunkTrainLabels == labelsOut) / size(chunkTrainLabels, 1) 
         trainClassErr = 1 - trainClassAcc
         

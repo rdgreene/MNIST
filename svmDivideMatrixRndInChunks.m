@@ -1,4 +1,12 @@
 function [matrixTrainChunks, labelTrainChunks] = svmDivideMatrixRndInChunks(trainMatrix, labelMatrix, noOfChunks) 
+%% this function get matrix of training data and labels and divide it in
+%  chunks, randomly shuffling the matrix
+%  
+%  function parameters: training matrix,label matrix and number of
+%  chunks
+
+%  returns: two list of matrices (chunks) for trining data and label matrix
+
     %get the size of the matrix in rows and cols
     [rows,cols]=size(trainMatrix);
     

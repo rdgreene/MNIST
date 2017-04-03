@@ -1,13 +1,18 @@
-%% Run Selected of Hyperparameter on Test data
+%% Run Selected of Hyperparameter on Train and Test data
 
 [trainChunks, labelChunks] = svmDivideMatrixRndInChunks(hogTrainFeatures, tTrain, 3);
 
+BestPerformanceKernelFunction = 'linear';
+BestPerformanceBoxContraint = 0.05;
+BestPerformanceKernelScale = 0.9;
+
+
 %% template with selected hyperparameters 
 currentTemplate = templateSVM('Standardize',1,...
-                    'KernelFunction','linear',...
+                    'KernelFunction',BestPerformanceKernelFunction,...
                     'ClassNames',{0,1,2,3,4,5,6,7,8,9}, ...
-                    'BoxConstraint',0.05,...
-                    'KernelScale',0.9)
+                    'BoxConstraint', BestPerformanceBoxContraint,...
+                    'KernelScale', BestPerformanceKernelScale)
 
 
 %% fit model on test data (HOG)
@@ -22,6 +27,7 @@ tr_Error = 1 - tr_Accuracy
 
 tr_ClassAcc = sum(tTrain == tr_labelsOut) / size(tTrain,1) 
 tr_ClassErr = 1 - tr_ClassAcc
+%save to file
 save('svm_fit_train_data', 'tr_labelsOut', 'tr_score', 'tr_ClassAcc','tr_ClassErr');
 
 %predict test data
@@ -34,5 +40,5 @@ ClassAcc = sum(tTest == labelsOut) / size(tTest,1)
 ClassErr = 1 - ClassAcc
 
 showConfusionMatrix(labelsOut, hogTestFeatures, tTest);
-
+%save to file
 save('svm_fit_test_data', 'labelsOut', 'score', 'ClassAcc','ClassErr');

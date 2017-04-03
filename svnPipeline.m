@@ -34,10 +34,12 @@ else
 end
 
 % confirmation of the kfold results using kfold prediction
+% Note: return only validation error
 fprintf('Confirm result using kfoldPredict\n');
 [labelsOut, score] = kfoldPredict(SVMMdl);
 confMatTest = confusionmat(tTrain, labelsOut);
 classAcc = sum(tTrain == labelsOut) / size(tTrain,1)
+% this should throw the same value
 classErr = 1 - classAcc
 confAcc = 1 - (size(tTrain,1) - sum(diag(confMatTest))) / size(tTrain,1)
 
@@ -71,17 +73,6 @@ OrigtTrain = tTrain;
 hogTrainFeatures = hogChunksTrain{1};
 tTrain = hogChunksLabels{1};
 
-%% Selection of Hyperparameter by discarding the higher error rates in
-% the following order: KernelFunction, BoxConstrians and Scalar value
-
-% Select best performing Kernel (from linear, polynomial and gaussian)
-[linearTrainCE, linearValCE] = kFoldValidateNN(3, hogTrainFeatures, tTrain, linearTemplate);
-[gaussianTrainCE, gaussianValCE] = kFoldValidateNN(3, hogTrainFeatures, tTrain, gaussianTemplate);
-[polynomialTrainCE, polynomialValCE] = kFoldValidateNN(3, hogTrainFeatures, tTrain, polynomialTemplate);
-
-
-
-
 %% Selection of Hyperparameter optimization base in each convination
 fprintf('Selection of hyperparameters\n');
 %pre assing space to list
@@ -102,11 +93,12 @@ end
 save('workspace')
 
 
-%% Train on the full hog training data, Using the lowest validation error 
+%% Train on the full hog training data, Using the lowest validation error
+% Loop through results and extract lower validation errors for the final
+% run
 
 %  extract the lower validation error
-
-lowerError = 999999;
+lowerError = 999999; % 
 lowerErrorIndex = 0;
 searchMatrix = {};
 
@@ -138,6 +130,7 @@ Error = 1 - Accuracy
 ClassAcc = sum(tTest == labelsOut) / size(tTest,1) 
 ClassErr = 1 - ClassAcc
 
+%show final confusion matrix
 showConfusionMatrix(labelsOut, hogTestFeatures, tTest);
 
 %% access svm template info
